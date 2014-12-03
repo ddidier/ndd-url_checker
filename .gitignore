@@ -1,0 +1,19 @@
+# bundler
+.bundle
+
+# jeweler
+pkg
+
+# rcov
+coverage
+coverage.data
+
+# rdoc
+rdoc
+
+# rubymine
+/.idea/
+
+# yard
+doc
+.yardoc
