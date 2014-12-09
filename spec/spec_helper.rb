@@ -32,6 +32,7 @@ Spork.prefork do
   # ----- requirements
 
   require 'rspec'
+  require 'rspec/collection_matchers'
   require 'webmock/rspec'
 
   # ----- RSpec configuration
