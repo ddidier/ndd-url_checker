@@ -1,0 +1,16 @@
+language: ruby
+rvm:
+  - 1.9.3
+  - 2.0.0
+  - 2.1.5
+before_install:
+  - gem update --system
+  - gem --version
+branches:
+  only:
+    - master
+    - development
+addons:
+  code_climate:
+    repo_token:
+      secure: "jwblN6fY+HN0u+JfNWKNRNRExOlDH0NbuPprLxqac3kjE3ER11pJieXJKOoeFMcYJ8Z/33qPn4KhOPeYV/0HcZW5YD3G9pjry+c2ha9S7YjIQi8O0BR/iUmqzhvYOT6OoR+khJl9pf5/li3OfXUbAVNdcEDAKARuzl/XnGpqsdE="

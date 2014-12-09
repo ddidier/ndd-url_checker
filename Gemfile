@@ -42,3 +42,7 @@ group :development do
   end
 
 end
+
+group :test do
+  gem 'codeclimate-test-reporter', '~> 0.4.0', require: false
+end
