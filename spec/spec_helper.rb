@@ -1,6 +1,10 @@
 # encoding: utf-8
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
+
 require 'rubygems'
 require 'spork'
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Spork prefork
@@ -28,6 +32,7 @@ Spork.prefork do
   # ----- requirements
 
   require 'rspec'
+  require 'webmock/rspec'
 
   # ----- RSpec configuration
 
@@ -38,6 +43,7 @@ Spork.prefork do
     # ----- filters
     config.alias_example_to :fit, :focused
     config.filter_run_including :focused
+    config.order = 'random'
     config.run_all_when_everything_filtered = true
     config.expect_with :rspec do |c|
       c.syntax = :expect
@@ -57,10 +63,10 @@ Spork.each_run do
 
   # ----- code coverage
 
-  if ENV['COVERAGE'] and not ENV['DRB']
-    require 'simplecov'
-    SimpleCov.start 'test_frameworks'
-  end
+  # if ENV['COVERAGE'] and not ENV['DRB']
+  #   require 'simplecov'
+  #   SimpleCov.start 'test_frameworks'
+  # end
 
   # ----- files reload
   Dir["#{lib_path}/**/*.rb"].each { |file| require file }
