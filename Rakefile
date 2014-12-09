@@ -21,7 +21,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage    = 'http://github.com/ddidier/ndd-url_checker'
   gem.license     = 'MIT'
   gem.email       = 'c_inconnu2@yahoo.fr'
-  gem.authors     = ['ddidier']
+  gem.authors     = ['David DIDIER']
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
