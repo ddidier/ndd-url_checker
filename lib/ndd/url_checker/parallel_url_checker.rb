@@ -10,7 +10,7 @@ module NDD
     # Wraps an instance of {NDD::UrlChecker::ThreadedUrlChecker} or {NDD::UrlChecker::ForkedUrlChecker}
     # depending of the underlying Ruby implementation.
     # @author David DIDIER
-    # @attr_reader delegate [NDD::UrlChecker::AbstractUrlChecker] the delegate checker.
+    # @attr_reader delegate [#check] the delegate URL checker.
     class ParallelUrlChecker < AbstractUrlChecker
 
       attr_reader :delegate

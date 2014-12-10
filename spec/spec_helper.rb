@@ -27,6 +27,7 @@ Spork.prefork do
   require 'logging'
   require 'rspec'
   require 'rspec/collection_matchers'
+  require 'tempfile'
   require 'webmock/rspec'
 
   # ----- code coverage

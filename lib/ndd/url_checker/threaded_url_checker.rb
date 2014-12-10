@@ -8,7 +8,7 @@ module NDD
 
     # An URL checker using threads to parallelize processing. Does not work on MRI.
     # @author David DIDIER
-    # @attr_reader delegate [NDD::UrlChecker::AbstractUrlChecker] the delegate checker.
+    # @attr_reader delegate [#check] the delegate URL checker.
     # @attr_reader parallelism [Fixnum] the number of threads.
     class ThreadedUrlChecker < AbstractUrlChecker
 

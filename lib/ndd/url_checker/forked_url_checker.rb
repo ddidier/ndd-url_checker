@@ -9,7 +9,7 @@ module NDD
 
     # An URL checker using forks to parallelize processing. To be used with MRI.
     # @author David DIDIER
-    # @attr_reader delegate [NDD::UrlChecker::AbstractUrlChecker] the delegate checker.
+    # @attr_reader delegate [#check] the delegate URL checker.
     # @attr_reader parallelism [Fixnum] the number of processes.
     class ForkedUrlChecker < AbstractUrlChecker
 
