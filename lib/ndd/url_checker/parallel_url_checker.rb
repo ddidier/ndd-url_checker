@@ -15,8 +15,8 @@ module NDD
       attr_reader :delegate
 
       # Create a new instance.
-      # @param [AbstractUrlChecker] delegate_checker defaults to {NDD::UrlChecker::BlockingUrlChecker}.
-      # @param [Fixnum] parallelism the number of threads or processes.
+      # @param delegate_checker [AbstractUrlChecker] defaults to {NDD::UrlChecker::BlockingUrlChecker}.
+      # @param parallelism [Fixnum] the number of threads or processes.
       def initialize(delegate_checker: nil, parallelism: 10)
         @logger = Logging.logger[self]
 
