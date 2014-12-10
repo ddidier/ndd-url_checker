@@ -92,6 +92,12 @@ describe NDD::UrlChecker::Status do
         expect(status.unknown_host).to eq status
       end
     end
+
+    context '#to_s' do
+      it 'returns the status representation' do
+        expect(status.to_s).to match %r{^#<NDD::UrlChecker::Status:0[xX][0-9a-fA-F]+ @uris=\["http://www.example.com"\], @code=:unknown>$}
+      end
+    end
   end
 
   # ------------------------------------------------------------------------------------------------------- direct -----
@@ -162,6 +168,12 @@ describe NDD::UrlChecker::Status do
     context '#unknown_host' do
       it 'raises an error' do
         expect { status.unknown_host }.to raise_error(/from :direct to :unknown_host is forbidden/)
+      end
+    end
+
+    context '#to_s' do
+      it 'returns the status representation' do
+        expect(status.to_s).to match %r{^#<NDD::UrlChecker::Status:0[xX][0-9a-fA-F]+ @uris=\["http://www.example.com"\], @code=:direct>$}
       end
     end
   end
@@ -236,12 +248,18 @@ describe NDD::UrlChecker::Status do
         expect { status.unknown_host }.to raise_error(/from :failed to :unknown_host is forbidden/)
       end
     end
+
+    context '#to_s' do
+      it 'returns the status representation' do
+        expect(status.to_s).to match %r{^#<NDD::UrlChecker::Status:0[xX][0-9a-fA-F]+ @uris=\["http://www.example.com"\], @code=:failed, @error="some error">$}
+      end
+    end
   end
 
   # --------------------------------------------------------------------------------------------------- redirected -----
   context 'when code is :redirected' do
     let(:uri) { 'http://www.example.com' }
-    let(:redirect_uri) { 'http://www.redirect-example.com' }
+    let(:redirect_uri) { 'http://www.redirected.com' }
     let(:status) { NDD::UrlChecker::Status.new(uri).redirected(redirect_uri) }
 
     context '#uri' do
@@ -325,6 +343,12 @@ describe NDD::UrlChecker::Status do
         expect(status.unknown_host).to eq status
       end
     end
+
+    context '#to_s' do
+      it 'returns the status representation' do
+        expect(status.to_s).to match %r{^#<NDD::UrlChecker::Status:0[xX][0-9a-fA-F]+ @uris=\["http://www.example.com", "http://www.redirected.com"\], @code=:redirected>$}
+      end
+    end
   end
 
   # ------------------------------------------------------------------------------------------- too_many_redirects -----
@@ -397,6 +421,12 @@ describe NDD::UrlChecker::Status do
         expect { status.unknown_host }.to raise_error(/from :too_many_redirects to :unknown_host is forbidden/)
       end
     end
+
+    context '#to_s' do
+      it 'returns the status representation' do
+        expect(status.to_s).to match %r{^#<NDD::UrlChecker::Status:0[xX][0-9a-fA-F]+ @uris=\["http://www.example.com"\], @code=:too_many_redirects>$}
+      end
+    end
   end
 
   # ------------------------------------------------------------------------------------------------- unknown_host -----
@@ -467,6 +497,12 @@ describe NDD::UrlChecker::Status do
     context '#unknown_host' do
       it 'raises an error' do
         expect { status.unknown_host }.to raise_error(/from :unknown_host to :unknown_host is forbidden/)
+      end
+    end
+
+    context '#to_s' do
+      it 'returns the status representation' do
+        expect(status.to_s).to match %r{^#<NDD::UrlChecker::Status:0[xX][0-9a-fA-F]+ @uris=\["http://www.example.com"\], @code=:unknown_host>$}
       end
     end
   end

@@ -37,6 +37,11 @@ module NDD
         INVALID_CODES.include? @code
       end
 
+      # @return [Boolean] true if redirected, false otherwise.
+      def redirected?
+        @code == :redirected
+      end
+
 
       # When the URI is valid without any redirect.
       # @return [NDD::UrlChecker::Status] self.
@@ -72,10 +77,8 @@ module NDD
         update_code(:unknown_host, %i(unknown redirected))
       end
 
-
-      # @return [Boolean] true if redirected, false otherwise.
-      def redirected?
-        @code == :redirected
+      def to_s
+        self.inspect
       end
 
 
