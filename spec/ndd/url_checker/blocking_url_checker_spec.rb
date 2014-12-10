@@ -7,7 +7,7 @@ describe NDD::UrlChecker::BlockingUrlChecker do
   end
 
   before(:each) do
-    subject.logger.level = Logger::INFO
+    # Logging.logger.root.level = :debug
     WebMock.reset!
   end
 

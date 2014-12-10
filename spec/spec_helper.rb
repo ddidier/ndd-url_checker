@@ -22,6 +22,13 @@ Spork.prefork do
   $LOAD_PATH.unshift(lib_path)
   $LOAD_PATH.unshift(spec_dir)
 
+  # ----- requirements
+
+  require 'logging'
+  require 'rspec'
+  require 'rspec/collection_matchers'
+  require 'webmock/rspec'
+
   # ----- code coverage
 
   if ENV['COVERAGE'] and not ENV['DRB']
@@ -29,11 +36,10 @@ Spork.prefork do
     SimpleCov.start 'test_frameworks'
   end
 
-  # ----- requirements
+  # ----- logging
 
-  require 'rspec'
-  require 'rspec/collection_matchers'
-  require 'webmock/rspec'
+  Logging.logger.root.appenders = Logging.appenders.stdout
+  Logging.logger.root.level = :off
 
   # ----- RSpec configuration
 

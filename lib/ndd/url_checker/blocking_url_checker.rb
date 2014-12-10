@@ -1,5 +1,6 @@
 require 'net/http'
 require 'net/https'
+require 'logging'
 require 'ndd/url_checker/status'
 
 module NDD
@@ -9,15 +10,11 @@ module NDD
     # @author David DIDIER
     class BlockingUrlChecker
 
-      attr_reader :logger
-
       # Create a new instance.
       # @param [Fixnum] maximum_redirects the maximum number of redirects before failing.
       # @param [Fixnum] timeout the number of seconds to wait before failing.
       def initialize(maximum_redirects=5, timeout=5)
-        @logger = Logger.new(STDOUT)
-        @logger.level = Logger::INFO
-        @logger.progname = BlockingUrlChecker
+        @logger = Logging.logger[self]
         @maximum_redirects = maximum_redirects
         @timeout = timeout
       end
@@ -28,6 +25,7 @@ module NDD
       # @param [String|Array<String>] urls
       # @return [NDD::UrlChecker::Status|Hash<String => NDD::UrlChecker::Status>]
       def check(*urls)
+        @logger.info "Checking #{urls.size} URL(s)"
         return check_single(urls.first) if urls.size == 1
         Hash[urls.map { |url| [url, check_single(url)] }]
       end
@@ -38,6 +36,7 @@ module NDD
       # @param [String|Array<String>] urls
       # @return [NDD::UrlChecker::Status|Hash<String => Boolean>]
       def validate(*urls)
+        @logger.info "Validating #{urls.size} URL(s)"
         return validate_single(urls.first) if urls.size == 1
         Hash[urls.map { |url| [url, validate_single(url)] }]
       end
@@ -45,27 +44,29 @@ module NDD
 
       private
 
-      # FIXME: platform dependent?
-      UNKNOWN_HOST_MESSAGE = 'getaddrinfo: Name or service not known'
-
       # Checks that the given URL is valid.
       # @param [String] url
       # @return [NDD::UrlChecker::Status]
       def check_single(url)
         begin
-          check_uri(URI.parse(url), Status.new(url))
+          @logger.debug "Checking: #{url}"
+          status = check_uri(URI.parse(url), Status.new(url))
         rescue => error
-          if error.is_a?(SocketError) && error.message == UNKNOWN_HOST_MESSAGE
-            return Status.new(url).unknown_host
-          end
-          Status.new(url).failed(error)
+          status = if unknown_host?(error)
+                     Status.new(url).unknown_host
+                   else
+                     Status.new(url).failed(error)
+                   end
         end
+        @logger.debug "Checked: #{url} -> #{status.code.upcase}"
+        status
       end
 
       # Validates that the given URL are valid.
       # @param [String] url
       # @return [Boolean]
       def validate_single(url)
+        @logger.debug "Validating: #{url}"
         check_single(url).valid?
       end
 
@@ -118,6 +119,13 @@ module NDD
           # If the redirect is relative we need to build a new URI using the current URI as a base.
           URI.join("#{uri.scheme}://#{uri.host}:#{uri.port}", response['location'])
         end
+      end
+
+      # FIXME: platform dependent?
+      UNKNOWN_HOST_MESSAGE = 'getaddrinfo: Name or service not known'
+
+      def unknown_host?(error)
+        error.is_a?(SocketError) && error.message == UNKNOWN_HOST_MESSAGE
       end
 
     end
