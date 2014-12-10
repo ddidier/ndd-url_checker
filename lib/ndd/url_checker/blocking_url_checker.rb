@@ -14,7 +14,7 @@ module NDD
       # Create a new instance.
       # @param [Fixnum] maximum_redirects the maximum number of redirects before failing.
       # @param [Fixnum] timeout the number of seconds to wait before failing.
-      def initialize(maximum_redirects=5, timeout=5)
+      def initialize(maximum_redirects: 5, timeout: 5)
         @logger = Logging.logger[self]
         @maximum_redirects = maximum_redirects
         @timeout = timeout

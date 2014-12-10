@@ -17,16 +17,16 @@ module NDD
       # Create a new instance.
       # @param [AbstractUrlChecker] delegate_checker defaults to {NDD::UrlChecker::BlockingUrlChecker}.
       # @param [Fixnum] parallelism the number of threads or processes.
-      def initialize(delegate_checker=nil, parallelism=10)
+      def initialize(delegate_checker: nil, parallelism: 10)
         @logger = Logging.logger[self]
 
         @logger.debug "Ruby engine is #{RUBY_ENGINE}"
         if RUBY_ENGINE == 'jruby'
           @logger.info 'Creating a threaded URL checker'
-          parallel_checker = ThreadedUrlChecker.new(delegate_checker, parallelism)
+          parallel_checker = ThreadedUrlChecker.new(delegate_checker: delegate_checker, parallelism: parallelism)
         else
           @logger.info 'Creating a forked URL checker'
-          parallel_checker = ForkedUrlChecker.new(delegate_checker, parallelism)
+          parallel_checker = ForkedUrlChecker.new(delegate_checker: delegate_checker, parallelism: parallelism)
         end
 
         @delegate = parallel_checker
