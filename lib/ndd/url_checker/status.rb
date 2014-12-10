@@ -3,9 +3,9 @@ module NDD
 
     # The result of a URI test.
     # @author David DIDIER
-    # @attr_reader [String] code the state
-    # @attr_reader [String|StandardError] the last error if any
-    # @attr_reader [Array<String>] uris the list of requested URI
+    # @attr_reader code [String] the state
+    # @attr_reader error [String|StandardError] the last error if any
+    # @attr_reader uris [Array<String>] the list of requested URI
     class Status
 
       attr_reader :code
@@ -13,7 +13,7 @@ module NDD
       attr_reader :uris
 
       # Create a new NDD::UrlChecker::Status instance in the unknown state.
-      # @param [String|URI::HTTP] uri the requested URI.
+      # @param uri [String|URI::HTTP] the requested URI.
       def initialize(uri)
         @uris = [uri.to_s]
         @code = :unknown
@@ -50,7 +50,7 @@ module NDD
       end
 
       # When a generic error is raised.
-      # @param [StandardError|String] error the generic error.
+      # @param error [StandardError|String] the generic error.
       # @return [NDD::UrlChecker::Status] self.
       def failed(error)
         @error = error
@@ -58,7 +58,7 @@ module NDD
       end
 
       # Adds a new URI to the redirected URI list.
-      # @param [String|URI::HTTP] uri the redirection URI.
+      # @param uri [String|URI::HTTP] the redirection URI.
       # @return [NDD::UrlChecker::Status] self.
       def redirected(uri)
         @uris << uri.to_s

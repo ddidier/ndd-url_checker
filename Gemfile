@@ -26,6 +26,7 @@ group :development do
   gem 'simplecov',                  '~> 0.9',  require: false
   gem 'spork',                      '~> 0.9',  require: false
   gem 'webmock',                    '~> 1.20', require: false
+  gem 'yard',                       '~> 0.8',  require: false
 
   case HOST_OS
     when /darwin/i
