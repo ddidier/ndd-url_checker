@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+# @param [Boolean] skip_verify because a forked process cannot be verified
 RSpec.shared_examples 'a multiple URL checker' do |skip_verify|
 
   before(:all) do
