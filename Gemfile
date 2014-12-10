@@ -5,6 +5,7 @@ HOST_OS = RbConfig::CONFIG['host_os']
 
 # ------------------------------------------------------------------------------
 # Dependencies required to use the gem.
+gem 'cod',     '~> 0.6'
 gem 'logging', '~> 1.8'
 
 

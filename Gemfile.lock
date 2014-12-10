@@ -7,6 +7,7 @@ GEM
       timers (~> 4.0.0)
     childprocess (0.5.5)
       ffi (~> 1.0, >= 1.0.11)
+    cod (0.6.0)
     codeclimate-test-reporter (0.4.3)
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
@@ -131,6 +132,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.7)
+  cod (~> 0.6)
   codeclimate-test-reporter (~> 0.4)
   guard (~> 2.8)
   guard-bundler (~> 2.0)

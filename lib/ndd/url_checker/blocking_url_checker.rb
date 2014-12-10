@@ -1,14 +1,15 @@
+require 'logging'
+require 'ndd/url_checker/abstract_url_checker'
+require 'ndd/url_checker/status'
 require 'net/http'
 require 'net/https'
-require 'logging'
-require 'ndd/url_checker/status'
 
 module NDD
   module UrlChecker
 
     # An URL checker using the blocking Net::HTTP class.
     # @author David DIDIER
-    class BlockingUrlChecker
+    class BlockingUrlChecker < AbstractUrlChecker
 
       # Create a new instance.
       # @param [Fixnum] maximum_redirects the maximum number of redirects before failing.
