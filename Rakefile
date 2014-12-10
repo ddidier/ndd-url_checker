@@ -15,7 +15,7 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification
   # see http://guides.rubygems.org/specification-reference/ for more options
-  gem.name        = 'NDD URL Checker'
+  gem.name        = 'ndd-url_checker'
   gem.summary     = 'Validate URLs'
   gem.description = 'Validate URLs'
   gem.homepage    = 'http://github.com/ddidier/ndd-url_checker'
