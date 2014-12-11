@@ -79,5 +79,4 @@ Spork.each_run do
   Dir["#{lib_path}/**/*.rb"].each { |file| require file }
   Dir["#{spec_dir}/support/**/*.rb"].each { |file| require file }
 
-  require 'ndd/url_checker'
 end

@@ -7,9 +7,10 @@ require 'ndd/url_checker/threaded_url_checker'
 module NDD
   module UrlChecker
 
-    # Wraps an instance of ThreadedUrlChecker or ForkedUrlChecker
-    # depending of the underlying Ruby implementation.
+    # Wraps an instance of {NDD::UrlChecker::ThreadedUrlChecker} or {NDD::UrlChecker::ForkedUrlChecker}
+    # depending of the underlying Ruby implementation.
     # @author David DIDIER
+    # @attr_reader delegate [NDD::UrlChecker::AbstractUrlChecker] the delegate checker.
     class ParallelUrlChecker < AbstractUrlChecker
 
       attr_reader :delegate
@@ -32,6 +33,10 @@ module NDD
         @delegate = parallel_checker
       end
 
+      # Checks that the given URLs are valid.
+      # @param urls [String, Array<String>] the URLs to check
+      # @return [NDD::UrlChecker::Status, Array<NDD::UrlChecker::Status>] a single status for a single URL, an array
+      #         of status for multiple parameters
       def check(*urls)
         @delegate.check(*urls)
       end

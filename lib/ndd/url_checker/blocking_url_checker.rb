@@ -7,22 +7,23 @@ require 'net/https'
 module NDD
   module UrlChecker
 
-    # An URL checker using the blocking Net::HTTP class.
+    # An URL checker using the blocking {Net::HTTP} class.
     # @author David DIDIER
     class BlockingUrlChecker < AbstractUrlChecker
 
       # Create a new instance.
-      # @param [Fixnum] maximum_redirects the maximum number of redirects before failing.
-      # @param [Fixnum] timeout the number of seconds to wait before failing.
+      # @param maximum_redirects [Fixnum] the maximum number of redirects to follow before failing.
+      # @param timeout [Fixnum] the number of seconds to wait before failing.
       def initialize(maximum_redirects: 5, timeout: 5)
         @logger = Logging.logger[self]
         @maximum_redirects = maximum_redirects
         @timeout = timeout
       end
 
-      # Checks that the given URL are valid.
-      # @param [String|Array<String>] urls
-      # @return [NDD::UrlChecker::Status | Array<NDD::UrlChecker::Status>]
+      # Checks that the given URLs are valid.
+      # @param urls [String, Array<String>] the URLs to check
+      # @return [NDD::UrlChecker::Status, Array<NDD::UrlChecker::Status>] a single status for a single URL, an array
+      #         of status for multiple parameters
       def check(*urls)
         @logger.info "Checking #{urls.size} URL(s)"
         return check_single(urls.first) if urls.size < 2
@@ -30,11 +31,12 @@ module NDD
       end
 
 
+      # -------------------------------------------------------------------------------------------------- private -----
       private
 
       # Checks that the given URL is valid.
-      # @param [String] url
-      # @return [NDD::UrlChecker::Status]
+      # @param url [String] the URL to check
+      # @return [NDD::UrlChecker::Status]
       def check_single(url)
         begin
           @logger.debug "Checking: #{url}"
@@ -50,10 +52,10 @@ module NDD
         status
       end
 
-      # Checks that the given URL is valid.
-      # @param [URI::HTTP] uri the URI to check
-      # @param [NDD::UrlChecker::Status] status the current status of the stack
-      # @return [NDD::UrlChecker::Status]
+      # Checks that the given URI is valid.
+      # @param uri [URI::HTTP] the URI to check.
+      # @param status [NDD::UrlChecker::Status] the current status of the stack.
+      # @return [NDD::UrlChecker::Status]
       def check_uri(uri, status)
         if status.uris.size() > @maximum_redirects
           return status.too_many_redirects
@@ -101,7 +103,7 @@ module NDD
         end
       end
 
-      # FIXME: platform dependent?
+      # FIXME: platform dependent?
       UNKNOWN_HOST_MESSAGE = 'getaddrinfo: Name or service not known'
 
       def unknown_host?(error)

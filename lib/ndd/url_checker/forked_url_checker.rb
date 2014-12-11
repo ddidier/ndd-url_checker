@@ -9,20 +9,26 @@ module NDD
 
     # An URL checker using forks to parallelize processing. To be used with MRI.
     # @author David DIDIER
+    # @attr_reader delegate [NDD::UrlChecker::AbstractUrlChecker] the delegate checker.
+    # @attr_reader parallelism [Fixnum] the number of processes.
     class ForkedUrlChecker < AbstractUrlChecker
 
       attr_reader :delegate
       attr_reader :parallelism
 
       # Create a new instance.
-      # @param [AbstractUrlChecker] delegate_checker defaults to {NDD::UrlChecker::BlockingUrlChecker}.
-      # @param [Fixnum] parallelism the number of processes.
+      # @param delegate_checker [AbstractUrlChecker] defaults to {NDD::UrlChecker::BlockingUrlChecker}.
+      # @param parallelism [Fixnum] the number of processes.
       def initialize(delegate_checker: nil, parallelism: 10)
         @logger = Logging.logger[self]
         @delegate = delegate_checker || BlockingUrlChecker.new
         @parallelism = parallelism
       end
 
+      # Checks that the given URLs are valid.
+      # @param urls [String, Array<String>] the URLs to check
+      # @return [NDD::UrlChecker::Status, Array<NDD::UrlChecker::Status>] a single status for a single URL, an array
+      #         of status for multiple parameters
       def check(*urls)
         return delegate.check(*urls) if urls.size < 2
 
@@ -49,11 +55,14 @@ module NDD
       end
 
 
+      # -------------------------------------------------------------------------------------------------- private -----
       private
 
-      # Evenly distributes data into buckets. For example:
-      #     partition([1, 2, 3], 2) => [[1, 3], [2]]
-      #     partition([1, 2, 3, 4, 5, 6], 3) => [[1, 4], [2, 5], [3, 6]]
+      # Evenly distributes data into buckets.
+      #
+      # @example
+      #     partition([1, 2, 3], 2)           #=> [[1, 3], [2]]
+      #     partition([1, 2, 3, 4, 5, 6], 3)  #=> [[1, 4], [2, 5], [3, 6]]
       def partition(data, buckets)
         Array.new.tap do |slices|
           buckets.times.each { |_| slices << Array.new }
@@ -62,7 +71,9 @@ module NDD
       end
 
 
+      # ---------------------------------------------------------------------------------------------------- class -----
       # A simple worker class processing URL one by one.
+      # @private
       class Worker
         def initialize(id, result_pipe, url_checker)
           @logger = Logging.logger[self]
@@ -79,6 +90,7 @@ module NDD
         end
       end
 
+      private_constant :Worker
     end
   end
 end
