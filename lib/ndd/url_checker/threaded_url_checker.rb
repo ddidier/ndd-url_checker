@@ -26,11 +26,6 @@ module NDD
         raise 'TODO'
       end
 
-      def validate(*urls)
-        # delegate.validate(*urls)
-        raise 'TODO'
-      end
-
     end
   end
 end

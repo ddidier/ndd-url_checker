@@ -36,10 +36,6 @@ module NDD
         @delegate.check(*urls)
       end
 
-      def validate(*urls)
-        @delegate.validate(*urls)
-      end
-
     end
   end
 end

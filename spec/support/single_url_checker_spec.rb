@@ -14,12 +14,6 @@ RSpec.shared_examples 'a single URL checker' do
   context 'when the URL is valid' do
     let!(:stub) { stub_request(:get, 'http://www.valid.mock/').to_return(status: 200) }
 
-    describe '#validate' do
-      it 'returns true' do
-        expect(subject.validate('http://www.valid.mock/')).to be_truthy
-      end
-    end
-
     describe '#check' do
       let (:status) { subject.check('http://www.valid.mock/') }
 
@@ -45,12 +39,6 @@ RSpec.shared_examples 'a single URL checker' do
     let!(:stub2) { stub_redirect('http://www.redirect2.mock/', 'http://www.redirect3.mock/') }
     let!(:stub3) { stub_redirect('http://www.redirect3.mock/', 'http://www.redirect4.mock/') }
     let!(:stub4) { stub_request(:get, 'http://www.redirect4.mock/').to_return(status: 200) }
-
-    describe '#validate' do
-      it 'returns true' do
-        expect(subject.validate('http://www.redirect1.mock/')).to be_truthy
-      end
-    end
 
     describe '#check' do
       let (:status) { subject.check('http://www.redirect1.mock/') }
@@ -81,12 +69,6 @@ RSpec.shared_examples 'a single URL checker' do
     let!(:stub4) { stub_redirect('http://www.redirect4.mock/', 'http://www.redirect5.mock/') }
     let!(:stub5) { stub_redirect('http://www.redirect5.mock/', 'http://www.redirect6.mock/') }
 
-    describe '#validate' do
-      it 'returns false' do
-        expect(subject.validate('http://www.redirect1.mock/')).to be_falsey
-      end
-    end
-
     describe '#check' do
       it 'returns UrlChecker::Direct' do
         result = subject.check('http://www.redirect1.mock/')
@@ -108,12 +90,6 @@ RSpec.shared_examples 'a single URL checker' do
       error = SocketError.new('getaddrinfo: Name or service not known')
       stub_request(:get, 'http://www.invalid.mock/').to_raise(error)
     }
-
-    describe '#validate' do
-      it 'returns false' do
-        expect(subject.validate('http://www.invalid.mock/')).to be_falsey
-      end
-    end
 
     describe '#check' do
       let (:status) { subject.check('http://www.invalid.mock/') }
@@ -138,12 +114,6 @@ RSpec.shared_examples 'a single URL checker' do
   context 'when there is a socket error' do
     let!(:stub) { stub_request(:get, 'http://www.invalid.mock/').to_raise(SocketError) }
 
-    describe '#validate' do
-      it 'returns false' do
-        expect(subject.validate('http://www.invalid.mock/')).to be_falsey
-      end
-    end
-
     describe '#check' do
       let (:status) { subject.check('http://www.invalid.mock/') }
 
@@ -166,12 +136,6 @@ RSpec.shared_examples 'a single URL checker' do
   # -------------------------------------------------------------------------------------------------------- error -----
   context 'when there is an unexpected error' do
     let!(:stub) { stub_request(:get, 'http://www.error.mock/').to_raise('Some error') }
-
-    describe '#validate' do
-      it 'returns false' do
-        expect(subject.validate('http://www.error.mock/')).to be_falsey
-      end
-    end
 
     describe '#check' do
       let (:status) { subject.check('http://www.error.mock/') }

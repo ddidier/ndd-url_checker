@@ -21,25 +21,12 @@ module NDD
       end
 
       # Checks that the given URL are valid.
-      # If there is only a single URL parameter, returns a NDD::UrlChecker::Status.
-      # If there is only multiple URL parameters, returns a Hash of NDD::UrlChecker::Status indexed by their URI.
       # @param [String|Array<String>] urls
-      # @return [NDD::UrlChecker::Status|Hash<String => NDD::UrlChecker::Status>]
+      # @return [NDD::UrlChecker::Status | Array<NDD::UrlChecker::Status>]
       def check(*urls)
         @logger.info "Checking #{urls.size} URL(s)"
-        return check_single(urls.first) if urls.size == 1
-        Hash[urls.map { |url| [url, check_single(url)] }]
-      end
-
-      # Validates that the given URL are valid.
-      # If there is only a single URL parameter, returns a boolean.
-      # If there is only multiple URL parameters, returns a Hash of boolean indexed by their URI.
-      # @param [String|Array<String>] urls
-      # @return [NDD::UrlChecker::Status|Hash<String => Boolean>]
-      def validate(*urls)
-        @logger.info "Validating #{urls.size} URL(s)"
-        return validate_single(urls.first) if urls.size == 1
-        Hash[urls.map { |url| [url, validate_single(url)] }]
+        return check_single(urls.first) if urls.size < 2
+        urls.map { |url| check_single(url) }
       end
 
 
@@ -61,14 +48,6 @@ module NDD
         end
         @logger.debug "Checked: #{url} -> #{status.code.upcase}"
         status
-      end
-
-      # Validates that the given URL are valid.
-      # @param [String] url
-      # @return [Boolean]
-      def validate_single(url)
-        @logger.debug "Validating: #{url}"
-        check_single(url).valid?
       end
 
       # Checks that the given URL is valid.
