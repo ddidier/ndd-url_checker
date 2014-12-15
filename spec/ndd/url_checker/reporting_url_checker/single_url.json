@@ -1,0 +1,18 @@
+{
+  "benchmark": {
+    "utime": "XXX",
+    "stime": "XXX",
+    "total": "XXX",
+    "real": "XXX",
+    "size": "1",
+    "throughput": "XXX"
+  },
+  "results": [
+    {
+      "index": 1,
+      "url": "http://www.google.fr",
+      "code": "direct",
+      "comment": ""
+    }
+  ]
+}

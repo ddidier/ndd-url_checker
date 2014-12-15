@@ -25,9 +25,21 @@ describe NDD::UrlChecker::ReportingUrlChecker do
         @report_checker.check(expected_result.uri)
       end
 
+      it 'creates an CSV report' do
+        actual_report = actual_report(@report_checker, :csv, 'single_url.csv')
+        expected_report = expected_report('single_url.csv')
+        expect(actual_report).to eq expected_report
+      end
+
       it 'creates an HTML report' do
         actual_report = actual_report(@report_checker, :html, 'single_url.html')
         expected_report = expected_report('single_url.html')
+        expect(actual_report).to eq expected_report
+      end
+
+      it 'creates an JSON report' do
+        actual_report = actual_report(@report_checker, :json, 'single_url.json')
+        expected_report = expected_report('single_url.json')
         expect(actual_report).to eq expected_report
       end
 
@@ -53,9 +65,21 @@ describe NDD::UrlChecker::ReportingUrlChecker do
         @report_checker.check(*expected_results.map { |status| status.uri })
       end
 
+      it 'creates an CSV report' do
+        actual_report = actual_report(@report_checker, :csv, 'multiple_urls.csv')
+        expected_report = expected_report('multiple_urls.csv')
+        expect(actual_report).to eq expected_report
+      end
+
       it 'creates an HTML report' do
         actual_report = actual_report(@report_checker, :html, 'multiple_urls.html')
         expected_report = expected_report('multiple_urls.html')
+        expect(actual_report).to eq expected_report
+      end
+
+      it 'creates an JSON report' do
+        actual_report = actual_report(@report_checker, :json, 'multiple_urls.json')
+        expected_report = expected_report('multiple_urls.json')
         expect(actual_report).to eq expected_report
       end
 
@@ -77,7 +101,9 @@ describe NDD::UrlChecker::ReportingUrlChecker do
     actual_file = Tempfile.new(output_file_name)
     actual_report = report_checker.report(report_type, actual_file)
     expect(actual_report).to eq actual_file.read
-    actual_report.gsub(/^\s+/, '').gsub(/<td>[\d\.e-]+ second\(s\)<\/td>/, '<td>XXX second(s)</td>')
+    actual_report.gsub(/^\s+/, '')
+                 .gsub(/<td>[\d\.e-]+ second\(s\)<\/td>/, '<td>XXX second(s)</td>') # HTML
+                 .gsub(/"\d+\.\d+"/, '"XXX"').gsub(/"\d+\.\d+e-\d+"/, '"XXX"')      # JSON
   end
 
   def expected_report(expected_file_name)
