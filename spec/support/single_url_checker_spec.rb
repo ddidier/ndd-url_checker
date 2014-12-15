@@ -66,16 +66,21 @@ RSpec.shared_examples 'a single URL checker' do
     let!(:stub1) { stub_redirect('http://www.redirect1.mock/', 'http://www.redirect2.mock/') }
     let!(:stub2) { stub_redirect('http://www.redirect2.mock/', 'http://www.redirect3.mock/') }
     let!(:stub3) { stub_redirect('http://www.redirect3.mock/', 'http://www.redirect4.mock/') }
-    let!(:stub4) { stub_redirect('http://www.redirect4.mock/', 'http://www.redirect5.mock/') }
-    let!(:stub5) { stub_redirect('http://www.redirect5.mock/', 'http://www.redirect6.mock/') }
+    let!(:stub4) { stub_redirect('http://www.redirect4.mock/', 'relative') }
+    let!(:stub5) { stub_redirect('http://www.redirect4.mock/relative', 'http://www.redirect5.mock/') }
 
     describe '#check' do
       it 'returns UrlChecker::Direct' do
         result = subject.check('http://www.redirect1.mock/')
         expect(result).to be_kind_of NDD::UrlChecker::Status
-        # expect(result).to be_kind_of UrlChecker::TooManyRedirect
         expect(result.uri).to eq 'http://www.redirect1.mock/'
-        expect(result.uris).to eq (1..6).to_a.map { |i| "http://www.redirect#{i}.mock/" }
+        expect(result.uris).to eq %w(http://www.redirect1.mock/
+                                     http://www.redirect2.mock/
+                                     http://www.redirect3.mock/
+                                     http://www.redirect4.mock/
+                                     http://www.redirect4.mock/relative
+                                     http://www.redirect5.mock/
+                                    )
       end
     end
 
@@ -133,7 +138,30 @@ RSpec.shared_examples 'a single URL checker' do
     end
   end
 
-  # -------------------------------------------------------------------------------------------------------- error -----
+  # ----------------------------------------------------------------------------------------------- expected error -----
+  context 'when there is an unexpected error' do
+    let!(:stub) { stub_request(:get, 'http://www.error.mock/').to_return(status: 400) }
+
+    describe '#check' do
+      let (:status) { subject.check('http://www.error.mock/') }
+
+      it 'returns a status with a :failed code' do
+        expect(status.code).to eq :failed
+      end
+      it 'returns a status with the requested URI' do
+        expect(status.uri).to eq 'http://www.error.mock/'
+      end
+      it 'returns a status with the raised error' do
+        expect(status.error).to be_a Net::HTTPBadRequest
+      end
+    end
+
+    after(:each) do
+      expect(stub).to have_been_requested
+    end
+  end
+
+  # --------------------------------------------------------------------------------------------- unexpected error -----
   context 'when there is an unexpected error' do
     let!(:stub) { stub_request(:get, 'http://www.error.mock/').to_raise('Some error') }
 

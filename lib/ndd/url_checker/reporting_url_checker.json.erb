@@ -1,0 +1,20 @@
+{
+  "benchmark": {
+    "utime": "<%= benchmark.utime %>",
+    "stime": "<%= benchmark.stime %>",
+    "total": "<%= benchmark.total %>",
+    "real": "<%= benchmark.real %>",
+    "size": "<%= results.size %>",
+    "throughput": "<%= benchmark.real/results.size %>"
+  },
+  "results": [
+  <% results.each_with_index do |status, index| %>
+    {
+      "index": <%= index+1 %>,
+      "url": "<%= status.uri %>",
+      "code": "<%= status.code %>",
+      "comment": "<% if status.invalid? %><%= status.error %><% end %>"
+    }<% if index < results.size - 1 %>,<% end %>
+  <% end %>
+  ]
+}

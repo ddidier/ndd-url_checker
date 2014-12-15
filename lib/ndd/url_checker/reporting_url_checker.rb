@@ -67,13 +67,11 @@ module NDD
       def template_path(symbol_or_path)
         case symbol_or_path
           when :csv then
-            # File.expand_path(File.join(File.dirname(__FILE__), 'reporting_url_checker.csv.erb'))
-            raise 'TODO'
+            File.expand_path(File.join(File.dirname(__FILE__), 'reporting_url_checker.csv.erb'))
           when :html then
             File.expand_path(File.join(File.dirname(__FILE__), 'reporting_url_checker.html.erb'))
           when :json then
-            # File.expand_path(File.join(File.dirname(__FILE__), 'reporting_url_checker.json.erb'))
-            raise 'TODO'
+            File.expand_path(File.join(File.dirname(__FILE__), 'reporting_url_checker.json.erb'))
           else
             symbol_or_path
         end

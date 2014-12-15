@@ -1,0 +1,4 @@
+Index,URL,Result,Code,Comment
+<% results.each_with_index do |status, index| %>
+<%= index+1 %>,<%= status.uri %>,<%= status.valid? ? 'valid' : 'invalid' %>,<%= status.code %>,<% if status.invalid? %><%= status.error %><% end %>
+<% end %>

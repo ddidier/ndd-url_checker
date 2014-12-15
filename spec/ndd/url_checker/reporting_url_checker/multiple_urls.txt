@@ -1,0 +1,16 @@
+count = 3
+
+- index = 1
+- uri = http://www.google.com
+- valid = true
+- code = direct
+
+- index = 2
+- uri = http://www.google.de
+- valid = false
+- code = failed
+
+- index = 3
+- uri = http://www.google.fr
+- valid = true
+- code = direct
