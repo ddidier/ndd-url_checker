@@ -16,22 +16,31 @@ describe NDD::UrlChecker::ReportingUrlChecker do
   describe '#report' do
 
     context 'when checking a single URL' do
-      it 'creates an HTML report' do
+      before(:each) do
         expected_result = NDD::UrlChecker::Status.new('http://www.google.fr').direct
         checker = double
         expect(checker).to receive(:check).and_return(expected_result)
 
-        report_checker = NDD::UrlChecker::ReportingUrlChecker.new(checker)
-        report_checker.check(expected_result.uri)
+        @report_checker = NDD::UrlChecker::ReportingUrlChecker.new(checker)
+        @report_checker.check(expected_result.uri)
+      end
 
-        actual_report = actual_report(report_checker, 'single_url.html')
+      it 'creates an HTML report' do
+        actual_report = actual_report(@report_checker, :html, 'single_url.html')
         expected_report = expected_report('single_url.html')
+        expect(actual_report).to eq expected_report
+      end
+
+      it 'creates a custom report' do
+        custom_template = File.expand_path(File.join(File.dirname(__FILE__), 'reporting_url_checker/custom.txt.erb'))
+        actual_report = actual_report(@report_checker, custom_template, 'single_url.txt')
+        expected_report = expected_report('single_url.txt')
         expect(actual_report).to eq expected_report
       end
     end
 
     context 'when checking multiple URLs' do
-      it 'creates an HTML report' do
+      before(:each) do
         expected_results = [
             NDD::UrlChecker::Status.new('http://www.google.fr').direct,
             NDD::UrlChecker::Status.new('http://www.google.com').direct,
@@ -40,11 +49,20 @@ describe NDD::UrlChecker::ReportingUrlChecker do
         checker = double
         expect(checker).to receive(:check).and_return(expected_results)
 
-        report_checker = NDD::UrlChecker::ReportingUrlChecker.new(checker)
-        report_checker.check(*expected_results.map { |status| status.uri })
+        @report_checker = NDD::UrlChecker::ReportingUrlChecker.new(checker)
+        @report_checker.check(*expected_results.map { |status| status.uri })
+      end
 
-        actual_report = actual_report(report_checker, 'multiple_urls.html')
+      it 'creates an HTML report' do
+        actual_report = actual_report(@report_checker, :html, 'multiple_urls.html')
         expected_report = expected_report('multiple_urls.html')
+        expect(actual_report).to eq expected_report
+      end
+
+      it 'creates a custom report' do
+        custom_template = File.expand_path(File.join(File.dirname(__FILE__), 'reporting_url_checker/custom.txt.erb'))
+        actual_report = actual_report(@report_checker, custom_template, 'multiple_urls.txt')
+        expected_report = expected_report('multiple_urls.txt')
         expect(actual_report).to eq expected_report
       end
     end
@@ -54,10 +72,10 @@ describe NDD::UrlChecker::ReportingUrlChecker do
   # ------------------------------------------------------------------------------------------------------ private -----
   private
 
-  def actual_report(report_checker, output_file_name)
+  def actual_report(report_checker, report_type, output_file_name)
     # actual_file = '/tmp/multiple_urls.html'
     actual_file = Tempfile.new(output_file_name)
-    actual_report = report_checker.report(:html, actual_file)
+    actual_report = report_checker.report(report_type, actual_file)
     expect(actual_report).to eq actual_file.read
     actual_report.gsub(/^\s+/, '').gsub(/<td>[\d\.e-]+ second\(s\)<\/td>/, '<td>XXX second(s)</td>')
   end

@@ -1,0 +1,8 @@
+count = <%= results.size %>
+
+<% results.each_with_index do |status, index| %>
+- index = <%= index+1 %>
+- uri = <%= status.uri %>
+- valid = <%= status.valid? %>
+- class = <%= status.class %>
+<% end %>
