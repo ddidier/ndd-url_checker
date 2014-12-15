@@ -77,7 +77,7 @@
   <tr>
     <th>#</th>
     <th>URL</th>
-    <th>Result</th>
+    <th>Code</th>
     <th>Comment</th>
   </tr>
   </thead>
@@ -86,7 +86,7 @@
       <tr class="<%= status.invalid? ? 'danger' : '' %>">
         <td><%= index+1 %></td>
         <td><a href="<%= status.uri %>" target="_blank"><%= status.uri %></a></td>
-        <td><%= status.class %></td>
+        <td><%= status.code %></td>
         <td><% if status.invalid? %><%= status.error %><% end %></td>
       </tr>
   <% end %>

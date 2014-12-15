@@ -3,4 +3,4 @@ count = 1
 - index = 1
 - uri = http://www.google.fr
 - valid = true
-- class = NDD::UrlChecker::Status
+- code = direct
