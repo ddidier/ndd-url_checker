@@ -64,12 +64,14 @@ checker.check('http://www.google.com/')
 
 ### ReportingUrlChecker
 
-For a nice looking report, use [`NDD::UrlChecker::ReportingUrlChecker`](http://www.rubydoc.info/github/ddidier/ndd-url_checker/NDD/UrlChecker/ReportingUrlChecker) which enables reporting capabilities using ERB templates. Several built-in templates are provided: CSV (planed), HTML and JSON (planed).
+For a nice looking report, use [`NDD::UrlChecker::ReportingUrlChecker`](http://www.rubydoc.info/github/ddidier/ndd-url_checker/NDD/UrlChecker/ReportingUrlChecker) which enables reporting capabilities using ERB templates. Several built-in templates are provided: CSV, HTML and JSON.
 
 ```ruby
 checker = NDD::UrlChecker:: ReportingUrlChecker.new(delegate_checker)
 statuses = checker.check('http://www.invalid123456789.com/', 'http://www.google.com/')
+report_as_text = checker.report(:csv, '/some/report.csv')
 report_as_text = checker.report(:html, '/some/report.html')
+report_as_text = checker.report(:json, '/some/report.json')
 report_as_text = checker.report('/some/template.erb', '/some/report.html')
 ```
 
