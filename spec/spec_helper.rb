@@ -27,6 +27,7 @@ Spork.prefork do
   require 'logging'
   require 'rspec'
   require 'rspec/collection_matchers'
+  require 'tempfile'
   require 'webmock/rspec'
 
   # ----- code coverage
@@ -79,5 +80,4 @@ Spork.each_run do
   Dir["#{lib_path}/**/*.rb"].each { |file| require file }
   Dir["#{spec_dir}/support/**/*.rb"].each { |file| require file }
 
-  require 'ndd/url_checker'
 end

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 1em;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script language="JavaScript">
+        $(document).ready(function() {
+            $('input[type=radio][name=urlsFilter]').change(function() {
+                if (this.value == 'all') {
+                    $('tr').show();
+                }
+                else if (this.value == 'invalid') {
+                    $('tr').not('.danger').hide();
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+<h1>URL Checker Report</h1>
+
+<table class="table table-condensed table-hover" style="width: auto">
+    <tbody>
+    <tr>
+        <td>User CPU time</td>
+        <td>XXX second(s)</td>
+    </tr>
+    <tr>
+        <td>System CPU time</td>
+        <td>XXX second(s)</td>
+    </tr>
+    <tr>
+        <td>Total time</td>
+        <td>XXX second(s)</td>
+    </tr>
+    <tr>
+        <td>Elapsed real time</td>
+        <td>XXX second(s)</td>
+    </tr>
+    <tr>
+        <td>Number of URLs</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>Average time for 1 URL</td>
+        <td>XXX second(s)</td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="radio">
+    <label>
+        <input type="radio" name="urlsFilter" id="showAllUrls" value="all" checked="true" />
+        Show all URLs
+    </label>
+</div>
+<div class="radio">
+    <label>
+        <input type="radio" name="urlsFilter" id="showInvalidUrls" value="invalid" />
+        Show invalid URLs
+    </label>
+</div>
+
+<table class="table table-condensed table-hover" style="width: auto">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>URL</th>
+        <th>Result</th>
+        <th>Comment</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr class="">
+        <td>1</td>
+        <td><a href="http://www.google.com" target="_blank">http://www.google.com</a></td>
+        <td>NDD::UrlChecker::Status</td>
+        <td></td>
+    </tr>
+
+    <tr class="danger">
+        <td>2</td>
+        <td><a href="http://www.google.de" target="_blank">http://www.google.de</a></td>
+        <td>NDD::UrlChecker::Status</td>
+        <td>some error</td>
+    </tr>
+
+    <tr class="">
+        <td>3</td>
+        <td><a href="http://www.google.fr" target="_blank">http://www.google.fr</a></td>
+        <td>NDD::UrlChecker::Status</td>
+        <td></td>
+    </tr>
+
+    </tbody>
+</table>
+
+</body>
+</html>
