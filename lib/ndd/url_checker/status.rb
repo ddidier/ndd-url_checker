@@ -49,7 +49,7 @@ module NDD
       end
 
       # When a generic error is raised.
-      # @param error [StandardError|String] the generic error.
+      # @param error [StandardError] the generic error.
       # @return [self]
       def failed(error)
         @error = error

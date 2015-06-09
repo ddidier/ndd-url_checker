@@ -54,7 +54,7 @@ RSpec.describe NDD::UrlChecker::Status do
     end
 
     context '#failed' do
-      let!(:new_status) { status.failed('some error') }
+      let!(:new_status) { status.failed(StandardError.new('some error')) }
       it 'changes the code to :failed' do
         expect(status.code).to eq :failed
       end
@@ -149,7 +149,7 @@ RSpec.describe NDD::UrlChecker::Status do
 
     context '#failed' do
       it 'raises an error' do
-        expect { status.failed('some error') }.to raise_error(/from :direct to :failed is forbidden/)
+        expect { status.failed(StandardError.new('some error')) }.to raise_error(/from :direct to :failed is forbidden/)
       end
     end
 
@@ -181,7 +181,7 @@ RSpec.describe NDD::UrlChecker::Status do
   # ------------------------------------------------------------------------------------------------------- failed -----
   context 'when code is :failed' do
     let(:uri) { 'http://www.example.com' }
-    let(:status) { NDD::UrlChecker::Status.new(uri).failed('some error') }
+    let(:status) { NDD::UrlChecker::Status.new(uri).failed(StandardError.new('some error')) }
 
     context '#uri' do
       it 'returns the original URI' do
@@ -215,7 +215,7 @@ RSpec.describe NDD::UrlChecker::Status do
 
     context '#error' do
       it 'returns the error' do
-        expect(status.error).to eq 'some error'
+        expect(status.error).to eq StandardError.new('some error')
       end
     end
 
@@ -227,7 +227,7 @@ RSpec.describe NDD::UrlChecker::Status do
 
     context '#failed' do
       it 'raises an error' do
-        expect { status.failed('some error') }.to raise_error(/from :failed to :failed is forbidden/)
+        expect { status.failed(StandardError.new('some error')) }.to raise_error(/from :failed to :failed is forbidden/)
       end
     end
 
@@ -251,7 +251,7 @@ RSpec.describe NDD::UrlChecker::Status do
 
     context '#to_s' do
       it 'returns the status representation' do
-        expect(status.to_s).to match %r{^#<NDD::UrlChecker::Status:0[xX][0-9a-fA-F]+ @uris=\["http://www.example.com"\], @code=:failed, @error="some error">$}
+        expect(status.to_s).to match %r{^#<NDD::UrlChecker::Status:0[xX][0-9a-fA-F]+ @uris=\["http://www.example.com"\], @code=:failed, @error=#<StandardError: some error>>$}
       end
     end
   end
@@ -305,7 +305,7 @@ RSpec.describe NDD::UrlChecker::Status do
     end
 
     context '#failed' do
-      let!(:new_status) { status.failed('some error') }
+      let!(:new_status) { status.failed(StandardError.new('some error')) }
       it 'changes the code to :failed' do
         expect(status.code).to eq :failed
       end
@@ -400,7 +400,7 @@ RSpec.describe NDD::UrlChecker::Status do
 
     context '#failed' do
       it 'raises an error' do
-        expect { status.failed('some error') }.to raise_error(/from :too_many_redirects to :failed is forbidden/)
+        expect { status.failed(StandardError.new('some error')) }.to raise_error(/from :too_many_redirects to :failed is forbidden/)
       end
     end
 
@@ -478,7 +478,7 @@ RSpec.describe NDD::UrlChecker::Status do
 
     context '#failed' do
       it 'raises an error' do
-        expect { status.failed('some error') }.to raise_error(/from :unknown_host to :failed is forbidden/)
+        expect { status.failed(StandardError.new('some error')) }.to raise_error(/from :unknown_host to :failed is forbidden/)
       end
     end
 

@@ -180,7 +180,7 @@ RSpec.describe NDD::UrlChecker::StatusDecorator do
 
   # ------------------------------------------------------------------------------------------------- unknown_host -----
   context 'when code is :unknown_host' do
-    before(:each) { status.unknown_host }
+    before(:each) { status.redirected(redirect_uri_1).unknown_host }
 
     it_behaves_like 'a status', :unknown_host
 
@@ -192,16 +192,16 @@ RSpec.describe NDD::UrlChecker::StatusDecorator do
 
     context '#details_title' do
       it 'returns the unknown URI' do
-        # TODO
-        expect(decorator.details_title).to be_nil
+        expect(decorator.details_title).to eq redirect_uri_1
       end
     end
 
     context '#details_body' do
       it 'returns the list of redirected URIs' do
-        # TODO
-        # expect(decorator.details_body).to eq "- http://www.example.com\n- http://www.redirected1.com\n"
-        expect(decorator.details_body).to be_nil
+        expect(decorator.details_body).to eq <<-DOC.gsub(/^ +/, '')
+            - http://www.example.com
+            - http://www.redirected1.com
+        DOC
       end
     end
   end

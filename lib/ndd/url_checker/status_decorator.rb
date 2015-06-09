@@ -19,12 +19,11 @@ module NDD
             uris.size - 1
           when :failed then
             return nil unless error
-            error.kind_of?(String) ? error : error.class.to_s
+            return error.class.to_s
           when :too_many_redirects then
             uris.size - 1
           when :unknown_host then
-            # TODO
-            nil
+            return uris.last
         end
       end
 
@@ -41,7 +40,7 @@ module NDD
           when :too_many_redirects then
             uris.map { |uri| "- #{uri}\n" }.join
           when :unknown_host then
-            nil
+            uris.map { |uri| "- #{uri}\n" }.join
         end
       end
     end
