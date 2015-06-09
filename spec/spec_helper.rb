@@ -50,12 +50,10 @@ Spork.prefork do
 
     # ----- filters
     config.alias_example_to :fit, :focused
+    config.disable_monkey_patching!
     config.filter_run_including :focused
     config.order = 'random'
     config.run_all_when_everything_filtered = true
-    config.expect_with :rspec do |c|
-      c.syntax = :expect
-    end
 
   end
 

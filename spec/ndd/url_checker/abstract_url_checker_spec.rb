@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe NDD::UrlChecker::AbstractUrlChecker do
+RSpec.describe NDD::UrlChecker::AbstractUrlChecker do
 
   context '#check' do
     it 'is not implemented' do

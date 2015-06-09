@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe NDD::UrlChecker::ThreadedUrlChecker do
+RSpec.describe NDD::UrlChecker::ThreadedUrlChecker do
 
   before(:all) do
     # Logging.logger.root.level = :debug

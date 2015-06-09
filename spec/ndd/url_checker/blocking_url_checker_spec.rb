@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe NDD::UrlChecker::BlockingUrlChecker do
+RSpec.describe NDD::UrlChecker::BlockingUrlChecker do
 
   before(:all) do
     # Logging.logger.root.level = :debug

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe NDD::UrlChecker::Status do
+RSpec.describe NDD::UrlChecker::Status do
 
   # ------------------------------------------------------------------------------------------------------ unknown -----
   context 'when initialized' do
