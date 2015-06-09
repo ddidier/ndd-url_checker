@@ -160,3 +160,6 @@ DEPENDENCIES
   spork (~> 0.9)
   webmock (~> 1.20)
   yard (~> 0.8)
+
+BUNDLED WITH
+   1.10.3
