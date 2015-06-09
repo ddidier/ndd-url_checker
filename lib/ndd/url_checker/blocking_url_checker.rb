@@ -40,12 +40,13 @@ module NDD
       def check_single(url)
         begin
           @logger.debug "Checking: #{url}"
-          status = check_uri(URI.parse(url), Status.new(url))
+          status = Status.new(url)
+          status = check_uri(URI.parse(url), status)
         rescue => error
           status = if unknown_host?(error)
-                     Status.new(url).unknown_host
+                     status.unknown_host
                    else
-                     Status.new(url).failed(error)
+                     status.failed(error)
                    end
         end
         @logger.debug "Checked: #{url} -> #{status.code.upcase}"
@@ -91,6 +92,8 @@ module NDD
       end
 
       def on_error(uri, response, status)
+        # read the body while the socket is still open
+        response.body if response.kind_of?(Net::HTTPResponse)
         status.failed(response)
       end
 

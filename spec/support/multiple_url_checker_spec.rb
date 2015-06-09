@@ -15,11 +15,11 @@ RSpec.shared_examples 'a multiple URL checker' do |skip_verify|
   # ------------------------------------------------------------------------------------------------- multiple URL -----
   context 'when there are multiple URLs' do
     let!(:stub1) { stub_request(:get, 'http://www.valid.mock/').to_return(status: 200) }
-    let!(:stub2) { stub_request(:get, 'http://www.invalid.mock/').to_raise(SocketError) }
+    let!(:stub2) { stub_request(:get, 'http://www.unknown.mock/').to_raise(SocketError) }
 
     describe '#check' do
       it 'returns a map of the results indexed by the URI' do
-        results = subject.check('http://www.valid.mock/', 'http://www.invalid.mock/')
+        results = subject.check('http://www.valid.mock/', 'http://www.unknown.mock/')
         expect(results).to have(2).items
         results_hash = results.reduce({}) { |hash, result| hash[result.uri] = result; hash }
 
@@ -28,9 +28,9 @@ RSpec.shared_examples 'a multiple URL checker' do |skip_verify|
         expect(status1.uri).to eq 'http://www.valid.mock/'
         expect(status1.error).to be_nil
 
-        status2 = results_hash['http://www.invalid.mock/']
+        status2 = results_hash['http://www.unknown.mock/']
         expect(status2.code).to eq :failed
-        expect(status2.uri).to eq 'http://www.invalid.mock/'
+        expect(status2.uri).to eq 'http://www.unknown.mock/'
         expect(status2.error).to be_a StandardError
       end
     end
