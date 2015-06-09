@@ -42,9 +42,11 @@ module NDD
         end
 
         # read back the results
-        results = urls.map do |_|
+        results = urls.each_with_index.map do |_, index|
           result = result_pipe.get
-          @logger.debug("Processed URLs #{hash.size}/#{urls.size}")
+          processed_number = index + 1
+          processed_percentage = processed_number.to_f / urls.size.to_f * 100.0
+          @logger.debug("Processed URLs #{processed_number}/#{urls.size} (#{processed_percentage.round(2)} %)")
           result
         end
 

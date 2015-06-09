@@ -25,7 +25,7 @@ module NDD
       # @return [NDD::UrlChecker::Status, Array<NDD::UrlChecker::Status>] a single status for a single URL, an array
       #         of status for multiple parameters
       def check(*urls)
-        @logger.info "Checking #{urls.size} URL(s)"
+        @logger.debug "Checking #{urls.size} URL(s)"
         return check_single(urls.first) if urls.size < 2
         urls.map { |url| check_single(url) }
       end
