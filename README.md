@@ -14,7 +14,8 @@ The API documentation can be find at [RubyDoc](http://www.rubydoc.info/github/dd
 This gem requires Ruby 2.x and is tested with:
 
 - Ruby 2.0.0
-- Ruby 2.1.x
+- Ruby 2.1.6
+- Ruby 2.2.2
 
 ## Usage
 
