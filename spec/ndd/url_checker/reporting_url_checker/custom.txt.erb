@@ -1,6 +1,6 @@
-count = <%= results.size %>
+count = <%= statuses.size %>
 
-<% results.each_with_index do |status, index| %>
+<% statuses.each_with_index do |status, index| %>
 - index = <%= index+1 %>
 - uri = <%= status.uri %>
 - valid = <%= status.valid? %>

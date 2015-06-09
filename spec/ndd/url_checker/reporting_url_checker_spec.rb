@@ -26,19 +26,19 @@ describe NDD::UrlChecker::ReportingUrlChecker do
       end
 
       it 'creates an CSV report' do
-        actual_report = actual_report(@report_checker, :csv, 'single_url.csv')
+        actual_report = actual_report_csv(@report_checker, :csv, 'single_url.csv')
         expected_report = expected_report('single_url.csv')
         expect(actual_report).to eq expected_report
       end
 
       it 'creates an HTML report' do
-        actual_report = actual_report(@report_checker, :html, 'single_url.html')
+        actual_report = actual_report_html(@report_checker, :html, 'single_url.html')
         expected_report = expected_report('single_url.html')
         expect(actual_report).to eq expected_report
       end
 
       it 'creates an JSON report' do
-        actual_report = actual_report(@report_checker, :json, 'single_url.json')
+        actual_report = actual_report_json(@report_checker, :json, 'single_url.json')
         expected_report = expected_report('single_url.json')
         expect(actual_report).to eq expected_report
       end
@@ -66,19 +66,19 @@ describe NDD::UrlChecker::ReportingUrlChecker do
       end
 
       it 'creates an CSV report' do
-        actual_report = actual_report(@report_checker, :csv, 'multiple_urls.csv')
+        actual_report = actual_report_csv(@report_checker, :csv, 'multiple_urls.csv')
         expected_report = expected_report('multiple_urls.csv')
         expect(actual_report).to eq expected_report
       end
 
       it 'creates an HTML report' do
-        actual_report = actual_report(@report_checker, :html, 'multiple_urls.html')
+        actual_report = actual_report_html(@report_checker, :html, 'multiple_urls.html')
         expected_report = expected_report('multiple_urls.html')
         expect(actual_report).to eq expected_report
       end
 
       it 'creates an JSON report' do
-        actual_report = actual_report(@report_checker, :json, 'multiple_urls.json')
+        actual_report = actual_report_json(@report_checker, :json, 'multiple_urls.json')
         expected_report = expected_report('multiple_urls.json')
         expect(actual_report).to eq expected_report
       end
@@ -97,13 +97,28 @@ describe NDD::UrlChecker::ReportingUrlChecker do
   private
 
   def actual_report(report_checker, report_type, output_file_name)
-    # actual_file = '/tmp/multiple_urls.html'
+    # actual_file = File.new('/tmp/report.html', 'w+')
     actual_file = Tempfile.new(output_file_name)
     actual_report = report_checker.report(report_type, actual_file)
     expect(actual_report).to eq actual_file.read
     actual_report.gsub(/^\s+/, '')
-                 .gsub(/<td>[\d\.e-]+ second\(s\)<\/td>/, '<td>XXX second(s)</td>') # HTML
-                 .gsub(/"\d+\.\d+"/, '"XXX"').gsub(/"\d+\.\d+e-\d+"/, '"XXX"')      # JSON
+  end
+
+  def actual_report_csv(report_checker, report_type, output_file_name)
+    actual_report(report_checker, report_type, output_file_name)
+  end
+
+  def actual_report_html(report_checker, report_type, output_file_name)
+    actual_report = actual_report(report_checker, report_type, output_file_name)
+    actual_report
+        .gsub(/<dd>[\d\.e-]+ s<\/dd>/, '<dd>123.456 s</dd>')
+        .gsub(/<dd>[\d\.e-]+ URL\/s<\/dd>/, '<dd>123.456 URL/s</dd>')
+        .gsub(/<dd>[\d\.e-]+ s\/URL<\/dd>/, '<dd>123.456 s/URL</dd>')
+  end
+
+  def actual_report_json(report_checker, report_type, output_file_name)
+    actual_report = actual_report(report_checker, report_type, output_file_name)
+    actual_report.gsub(/\d+\.\d+(e-?\d*)?/, '123.456')
   end
 
   def expected_report(expected_file_name)

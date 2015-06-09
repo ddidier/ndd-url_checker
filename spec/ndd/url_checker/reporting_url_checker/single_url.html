@@ -4,94 +4,157 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <style>
-        body {
-            padding: 1em;
-        }
-    </style>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script language="JavaScript">
-        $(document).ready(function() {
-            $('input[type=radio][name=urlsFilter]').change(function() {
-                if (this.value == 'all') {
-                    $('tr').show();
-                }
-                else if (this.value == 'invalid') {
-                    $('tr').not('.danger').hide();
-                }
+        if (!window.ndd_url_checker) {
+            window.ndd_url_checker = {};
+        }
+
+        ndd_url_checker.STATES = ['direct', 'redirected', 'failed', 'too-many-redirects', 'unknown-host'];
+
+        ndd_url_checker.displayStates = function () {
+            var displayStates = {};
+            $.each(ndd_url_checker.STATES, function (_, state) {
+                var checked = $('.display-' + state).is(':checked');
+                displayStates[state] = checked;
+            });
+            return displayStates;
+        }
+
+        ndd_url_checker.filter = function () {
+            var displayStates = ndd_url_checker.displayStates();
+
+            $.each(displayStates, function (state, display) {
+                $('.result-' + state).toggle(display);
+            });
+        }
+
+        $(document).ready(function () {
+            // show or hide results depending on their state
+            $.each(ndd_url_checker.STATES, function (_, state) {
+                $('.display-' + state).change(function () {
+                    ndd_url_checker.filter();
+                });
             });
         });
     </script>
 </head>
 
+
 <body>
 
-<h1>URL Checker Report</h1>
+<div class="container">
 
-<table class="table table-condensed table-hover" style="width: auto">
-    <tbody>
-    <tr>
-        <td>User CPU time</td>
-        <td>XXX second(s)</td>
-    </tr>
-    <tr>
-        <td>System CPU time</td>
-        <td>XXX second(s)</td>
-    </tr>
-    <tr>
-        <td>Total time</td>
-        <td>XXX second(s)</td>
-    </tr>
-    <tr>
-        <td>Elapsed real time</td>
-        <td>XXX second(s)</td>
-    </tr>
-    <tr>
-        <td>Number of URLs</td>
-        <td>1</td>
-    </tr>
-    <tr>
-        <td>Average time for 1 URL</td>
-        <td>XXX second(s)</td>
-    </tr>
-    </tbody>
-</table>
+    <div class="page-header">
+        <h1>
+            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+            URL Checker Report
+        </h1>
+    </div>
 
-<div class="radio">
-    <label>
-        <input type="radio" name="urlsFilter" id="showAllUrls" value="all" checked="true" />
-        Show all URLs
-    </label>
+
+    <div class="row">
+        <div class="col-md-4">
+            <dl class="page-info dl-horizontal">
+                <dt>Number of URLs</dt>
+                <dd>1</dd>
+                <dt>Duration</dt>
+                <dd>123.456 s</dd>
+                <dt>Average duration</dt>
+                <dd>123.456 s/URL</dd>
+                <dt>Average throughput</dt>
+                <dd>123.456 URL/s</dd>
+            </dl>
+        </div>
+        <div class="col-md-4">
+            <dl class="page-info dl-horizontal">
+                <dt>Valid URLS</dt>
+                <dd>1</dd>
+                <dt>direct</dt>
+                <dd>1</dd>
+                <dt>redirected</dt>
+                <dd>0</dd>
+            </dl>
+        </div>
+        <div class="col-md-4">
+            <dl class="page-info dl-horizontal">
+                <dt>Invalid URLS</dt>
+                <dd>0</dd>
+                <dt>failed</dt>
+                <dd>0</dd>
+                <dt>too many redirects</dt>
+                <dd>0</dd>
+                <dt>unknown host</dt>
+                <dd>0</dd>
+            </dl>
+        </div>
+    </div>
+    <hr />
+
+
+    <div class="row page-controls hidden-print">
+        <div class="col-md-6">
+            <span>Valid URLs:</span>
+
+            <div class="btn-group page-display" data-toggle="buttons">
+                <label class="btn btn-default active">
+                    <input type="checkbox" autocomplete="off" class="display-direct" checked="true" />
+                    Direct (1)
+                </label>
+                <label class="btn btn-default active">
+                    <input type="checkbox" autocomplete="off" class="display-redirected" checked="true" />
+                    Redirected (0)
+                </label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <span>Invalid URLs:</span>
+
+            <div class="btn-group page-display" data-toggle="buttons">
+                <label class="btn btn-default active">
+                    <input type="checkbox" autocomplete="off" class="display-failed" checked="true" />
+                    Failed (0)
+                </label>
+                <label class="btn btn-default active">
+                    <input type="checkbox" autocomplete="off" class="display-too-many-redirects" checked="true" />
+                    Too many redirects (0)
+                </label>
+                <label class="btn btn-default active">
+                    <input type="checkbox" autocomplete="off" class="display-unknown-host" checked="true" />
+                    Unknown host (0)
+                </label>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+
+    <table id="results" class="table table-condensed table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>URL</th>
+            <th>Code</th>
+            <th>Details</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr class="result result-direct ">
+            <td>1</td>
+            <td><a href="http://www.google.fr" target="_blank">http://www.google.fr</a></td>
+            <td>direct</td>
+            <td>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
 </div>
-<div class="radio">
-    <label>
-        <input type="radio" name="urlsFilter" id="showInvalidUrls" value="invalid" />
-        Show invalid URLs
-    </label>
-</div>
-
-<table class="table table-condensed table-hover" style="width: auto">
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>URL</th>
-        <th>Code</th>
-        <th>Comment</th>
-    </tr>
-    </thead>
-    <tbody>
-
-    <tr class="">
-        <td>1</td>
-        <td><a href="http://www.google.fr" target="_blank">http://www.google.fr</a></td>
-        <td>direct</td>
-        <td></td>
-    </tr>
-
-    </tbody>
-</table>
 
 </body>
 </html>

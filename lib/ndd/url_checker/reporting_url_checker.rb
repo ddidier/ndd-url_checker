@@ -24,21 +24,32 @@ module NDD
       def check(*urls)
         results = nil
         benchmark = Benchmark.measure { results = @delegate.check(*urls) }
-        @logger.debug "Checking #{urls.size} URL(s) benchmark: #{benchmark}"
+        @logger.debug "Checked #{urls.size} URL(s) benchmark: #{benchmark}"
 
         if urls.size > 1
-          @context = OpenStruct.new(
-              {
-                  benchmark: benchmark,
-                  results: results.sort_by { |status| status.uri }
-              })
+          statuses = results.sort_by { |status| status.uri }
         else
-          @context = OpenStruct.new(
-              {
-                  benchmark: benchmark,
-                  results: [results]
-              })
+          statuses = [results]
         end
+
+        @context = OpenStruct.new
+        @context.statuses = statuses
+
+        @context.urls = OpenStruct.new
+        @context.urls.count = urls.size
+        @context.urls.valid_count = statuses.select { |status| status.valid? }.size
+        @context.urls.direct_count = statuses.select { |status| status.code == :direct }.size
+        @context.urls.redirected_count = statuses.select { |status| status.code == :redirected }.size
+        @context.urls.invalid_count = statuses.select { |status| status.invalid? }.size
+        @context.urls.failed_count = statuses.select { |status| status.code == :failed }.size
+        @context.urls.too_many_redirects_count = statuses.select { |status| status.code == :too_many_redirects }.size
+        @context.urls.unknown_host_count = statuses.select { |status| status.code == :unknown_host }.size
+
+        @context.benchmark = OpenStruct.new
+        @context.benchmark.raw = benchmark
+        @context.benchmark.total_duration = benchmark.real
+        @context.benchmark.average_duration = benchmark.real / urls.size
+        @context.benchmark.average_throughput= urls.size / benchmark.real
 
         results
       end

@@ -1,20 +1,27 @@
 {
   "benchmark": {
-    "utime": "<%= benchmark.utime %>",
-    "stime": "<%= benchmark.stime %>",
-    "total": "<%= benchmark.total %>",
-    "real": "<%= benchmark.real %>",
-    "size": "<%= results.size %>",
-    "throughput": "<%= benchmark.real/results.size %>"
+    "total_duration": <%= benchmark.total_duration %>,
+    "average_duration": <%= benchmark.average_duration %>,
+    "average_throughput": <%= benchmark.average_throughput %>
+  },
+  "statistics": {
+    "count": <%= urls.count %>,
+    "valid_count": <%= urls.valid_count %>,
+    "direct_count": <%= urls.direct_count %>,
+    "redirected_count": <%= urls.redirected_count %>,
+    "invalid_count": <%= urls.invalid_count %>,
+    "failed_count": <%= urls.failed_count %>,
+    "too_many_redirects_count": <%= urls.too_many_redirects_count %>,
+    "unknown_host_count": <%= urls.unknown_host_count %>
   },
   "results": [
-  <% results.each_with_index do |status, index| %>
+  <% statuses.each_with_index do |status, index| %>
     {
       "index": <%= index+1 %>,
       "url": "<%= status.uri %>",
       "code": "<%= status.code %>",
-      "comment": "<% if status.invalid? %><%= status.error %><% end %>"
-    }<% if index < results.size - 1 %>,<% end %>
+      "details": "<% if status.invalid? %><%= status.error %><% end %>"
+    }<% if index < statuses.size - 1 %>,<% end %>
   <% end %>
   ]
 }

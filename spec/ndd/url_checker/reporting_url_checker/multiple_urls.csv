@@ -1,4 +1,4 @@
-Index,URL,Result,Code,Comment
+Index,URL,Result,Code,Details
 1,http://www.google.com,valid,direct,
 2,http://www.google.de,invalid,failed,some error
 3,http://www.google.fr,valid,direct,
