@@ -1,9 +1,9 @@
-count = 3
+count = 5
 
 - index = 1
 - uri = http://www.google.com
 - valid = true
-- code = direct
+- code = redirected
 
 - index = 2
 - uri = http://www.google.de
@@ -11,6 +11,16 @@ count = 3
 - code = failed
 
 - index = 3
+- uri = http://www.google.es
+- valid = false
+- code = too_many_redirects
+
+- index = 4
 - uri = http://www.google.fr
 - valid = true
 - code = direct
+
+- index = 5
+- uri = http://www.google.it
+- valid = false
+- code = unknown_host

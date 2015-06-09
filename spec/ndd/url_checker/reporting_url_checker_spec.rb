@@ -55,8 +55,10 @@ RSpec.describe NDD::UrlChecker::ReportingUrlChecker do
       before(:each) do
         expected_results = [
             NDD::UrlChecker::Status.new('http://www.google.fr').direct,
-            NDD::UrlChecker::Status.new('http://www.google.com').direct,
-            NDD::UrlChecker::Status.new('http://www.google.de').failed('some error')
+            NDD::UrlChecker::Status.new('http://www.google.com').redirected('http://www.google.fr'),
+            NDD::UrlChecker::Status.new('http://www.google.de').failed('some error'),
+            NDD::UrlChecker::Status.new('http://www.google.es').redirected('http://www.google.fr').too_many_redirects,
+            NDD::UrlChecker::Status.new('http://www.google.it').unknown_host
         ]
         checker = double
         expect(checker).to receive(:check).and_return(expected_results)

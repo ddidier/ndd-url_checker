@@ -38,6 +38,9 @@
                   ndd_url_checker.filter();
               });
           });
+
+          // activate all tooltips
+          $('[data-toggle="tooltip"]').tooltip()
       });
   </script>
 </head>
@@ -142,13 +145,16 @@
     </thead>
     <tbody>
     <% statuses.each_with_index do |status, index| %>
-        <tr class="result result-<%= status.code.to_s.gsub(/_/, '-') %> <%= status.invalid? ? 'danger' : '' %>">
+        <tr class="result result-<%= status.code_as_css %> <%= status.invalid? ? 'danger' : '' %>">
           <td><%= index+1 %></td>
           <td><a href="<%= status.uri %>" target="_blank"><%= status.uri %></a></td>
           <td><%= status.code %></td>
+          <td><%= status.details_title %></td>
           <td>
-            <% if status.invalid? and status.error %>
-                <%= status.error.class.to_s %><!--#%= CGI::escapeHTML(status.error.message) %-->
+            <% if status.details_body %>
+                <a href="#" data-toggle="tooltip" data-html="true" title="<%= CGI.escape_html(status.details_body) %>">
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
             <% end %>
           </td>
         </tr>

@@ -1,4 +1,6 @@
 Index,URL,Result,Code,Details
-1,http://www.google.com,valid,direct,
+1,http://www.google.com,valid,redirected,
 2,http://www.google.de,invalid,failed,some error
-3,http://www.google.fr,valid,direct,
+3,http://www.google.es,invalid,too_many_redirects,
+4,http://www.google.fr,valid,direct,
+5,http://www.google.it,invalid,unknown_host,

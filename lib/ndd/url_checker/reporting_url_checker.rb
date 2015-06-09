@@ -27,9 +27,9 @@ module NDD
         @logger.debug "Checked #{urls.size} URL(s) benchmark: #{benchmark}"
 
         if urls.size > 1
-          statuses = results.sort_by { |status| status.uri }
+          statuses = results.map { |status| StatusDecorator.new(status) }.sort_by { |status| status.uri }
         else
-          statuses = [results]
+          statuses = [results].map { |status| StatusDecorator.new(status) }
         end
 
         @context = OpenStruct.new

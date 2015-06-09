@@ -38,6 +38,9 @@
                     ndd_url_checker.filter();
                 });
             });
+
+            // activate all tooltips
+            $('[data-toggle="tooltip"]').tooltip()
         });
     </script>
 </head>
@@ -59,7 +62,7 @@
         <div class="col-md-4">
             <dl class="page-info dl-horizontal">
                 <dt>Number of URLs</dt>
-                <dd>3</dd>
+                <dd>5</dd>
                 <dt>Duration</dt>
                 <dd>123.456 s</dd>
                 <dt>Average duration</dt>
@@ -73,21 +76,21 @@
                 <dt>Valid URLS</dt>
                 <dd>2</dd>
                 <dt>direct</dt>
-                <dd>2</dd>
+                <dd>1</dd>
                 <dt>redirected</dt>
-                <dd>0</dd>
+                <dd>1</dd>
             </dl>
         </div>
         <div class="col-md-4">
             <dl class="page-info dl-horizontal">
                 <dt>Invalid URLS</dt>
-                <dd>1</dd>
+                <dd>3</dd>
                 <dt>failed</dt>
                 <dd>1</dd>
                 <dt>too many redirects</dt>
-                <dd>0</dd>
+                <dd>1</dd>
                 <dt>unknown host</dt>
-                <dd>0</dd>
+                <dd>1</dd>
             </dl>
         </div>
     </div>
@@ -101,11 +104,11 @@
             <div class="btn-group page-display" data-toggle="buttons">
                 <label class="btn btn-default active">
                     <input type="checkbox" autocomplete="off" class="display-direct" checked="true" />
-                    Direct (2)
+                    Direct (1)
                 </label>
                 <label class="btn btn-default active">
                     <input type="checkbox" autocomplete="off" class="display-redirected" checked="true" />
-                    Redirected (0)
+                    Redirected (1)
                 </label>
             </div>
         </div>
@@ -119,11 +122,11 @@
                 </label>
                 <label class="btn btn-default active">
                     <input type="checkbox" autocomplete="off" class="display-too-many-redirects" checked="true" />
-                    Too many redirects (0)
+                    Too many redirects (1)
                 </label>
                 <label class="btn btn-default active">
                     <input type="checkbox" autocomplete="off" class="display-unknown-host" checked="true" />
-                    Unknown host (0)
+                    Unknown host (1)
                 </label>
             </div>
         </div>
@@ -142,12 +145,17 @@
         </thead>
         <tbody>
 
-        <tr class="result result-direct ">
+        <tr class="result result-redirected ">
             <td>1</td>
             <td><a href="http://www.google.com" target="_blank">http://www.google.com</a></td>
-            <td>direct</td>
+            <td>redirected</td>
+            <td>1</td>
             <td>
-
+                <a href="#" data-toggle="tooltip" data-html="true" title="- http://www.google.com
+       - http://www.google.fr
+       ">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
             </td>
         </tr>
 
@@ -155,19 +163,43 @@
             <td>2</td>
             <td><a href="http://www.google.de" target="_blank">http://www.google.de</a></td>
             <td>failed</td>
+            <td>some error</td>
             <td>
+                <a href="#" data-toggle="tooltip" data-html="true" title="some error">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
+            </td>
+        </tr>
 
-                String<!--#%= CGI::escapeHTML(status.error.message) %-->
-
+        <tr class="result result-too-many-redirects danger">
+            <td>3</td>
+            <td><a href="http://www.google.es" target="_blank">http://www.google.es</a></td>
+            <td>too_many_redirects</td>
+            <td>1</td>
+            <td>
+                <a href="#" data-toggle="tooltip" data-html="true" title="- http://www.google.es
+       - http://www.google.fr
+       ">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                </a>
             </td>
         </tr>
 
         <tr class="result result-direct ">
-            <td>3</td>
+            <td>4</td>
             <td><a href="http://www.google.fr" target="_blank">http://www.google.fr</a></td>
             <td>direct</td>
+            <td></td>
             <td>
+            </td>
+        </tr>
 
+        <tr class="result result-unknown-host danger">
+            <td>5</td>
+            <td><a href="http://www.google.it" target="_blank">http://www.google.it</a></td>
+            <td>unknown_host</td>
+            <td></td>
+            <td>
             </td>
         </tr>
 

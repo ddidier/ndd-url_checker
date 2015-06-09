@@ -5,20 +5,20 @@
     "average_throughput": 123.456
   },
   "statistics": {
-    "count": 3,
+    "count": 5,
     "valid_count": 2,
-    "direct_count": 2,
-    "redirected_count": 0,
-    "invalid_count": 1,
+    "direct_count": 1,
+    "redirected_count": 1,
+    "invalid_count": 3,
     "failed_count": 1,
-    "too_many_redirects_count": 0,
-    "unknown_host_count": 0
+    "too_many_redirects_count": 1,
+    "unknown_host_count": 1
   },
   "results": [
     {
       "index": 1,
       "url": "http://www.google.com",
-      "code": "direct",
+      "code": "redirected",
       "details": ""
     },
     {
@@ -29,8 +29,20 @@
     },
     {
       "index": 3,
+      "url": "http://www.google.es",
+      "code": "too_many_redirects",
+      "details": ""
+    },
+    {
+      "index": 4,
       "url": "http://www.google.fr",
       "code": "direct",
+      "details": ""
+    },
+    {
+      "index": 5,
+      "url": "http://www.google.it",
+      "code": "unknown_host",
       "details": ""
     }
   ]
