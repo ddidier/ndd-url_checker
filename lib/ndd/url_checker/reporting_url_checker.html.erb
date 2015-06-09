@@ -2,8 +2,23 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <meta charset="UTF-8" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+  <style type="text/css">
+      .popover-title {
+          font-weight: bold;
+      }
+
+      .popover-content em {
+          font-style: normal;
+          font-weight: bold;
+      }
+
+      .popover-content ol {
+          margin-left: -20px;
+      }
+  </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -40,7 +55,11 @@
           });
 
           // activate all tooltips
-          $('[data-toggle="tooltip"]').tooltip()
+          $('[data-toggle="popover"]')
+                  .popover()
+                  .click(function (e) {
+                      e.preventDefault();
+                  });
       });
   </script>
 </head>
@@ -152,7 +171,8 @@
           <td><%= status.details_title %></td>
           <td>
             <% if status.details_body %>
-                <a href="#" data-toggle="tooltip" data-html="true" title="<%= CGI.escape_html(status.details_body) %>">
+                <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus"
+                   data-html="true" title="<%= status.uri %>" data-content="<%= status.details_body_as_html %>">
                   <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
             <% end %>

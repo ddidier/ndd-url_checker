@@ -2,8 +2,23 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <meta charset="UTF-8" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+    <style type="text/css">
+        .popover-title {
+            font-weight: bold;
+        }
+
+        .popover-content em {
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        .popover-content ol {
+            margin-left: -20px;
+        }
+    </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -40,7 +55,11 @@
             });
 
             // activate all tooltips
-            $('[data-toggle="tooltip"]').tooltip()
+            $('[data-toggle="popover"]')
+                    .popover()
+                    .click(function (e) {
+                        e.preventDefault();
+                    });
         });
     </script>
 </head>
@@ -151,9 +170,11 @@
             <td>redirected</td>
             <td>1</td>
             <td>
-                <a href="#" data-toggle="tooltip" data-html="true" title="- http://www.google.com
-       - http://www.google.fr
-       ">
+                <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus"
+                   data-html="true" title="http://www.google.com" data-content="<p><em>Status:</em> redirected</p>
+                    <p><em>URIs:</em><p>
+                    <ol><li>http://www.google.com</li><li>http://www.google.fr</li></ol>
+                ">
                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
             </td>
@@ -165,7 +186,11 @@
             <td>failed</td>
             <td>StandardError</td>
             <td>
-                <a href="#" data-toggle="tooltip" data-html="true" title="some error">
+                <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus"
+                   data-html="true" title="http://www.google.de" data-content="<p><em>Status:</em> failed</p>
+                    <p><em>URIs:</em><p>
+                    <ol><li>http://www.google.de</li></ol>
+                    <p><em>Error:</em> StandardError</p>">
                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
             </td>
@@ -177,9 +202,11 @@
             <td>too_many_redirects</td>
             <td>1</td>
             <td>
-                <a href="#" data-toggle="tooltip" data-html="true" title="- http://www.google.es
-       - http://www.google.fr
-       ">
+                <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus"
+                   data-html="true" title="http://www.google.es" data-content="<p><em>Status:</em> too_many_redirects</p>
+                    <p><em>URIs:</em><p>
+                    <ol><li>http://www.google.es</li><li>http://www.google.fr</li></ol>
+                ">
                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
             </td>
@@ -200,10 +227,13 @@
             <td>unknown_host</td>
             <td>http://www.google.it</td>
             <td>
-                <a href="#" data-toggle="tooltip" data-html="true" title="- http://www.google.it
-       ">
+                <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus"
+                   data-html="true" title="http://www.google.it" data-content="<p><em>Status:</em> unknown_host</p>
+                    <p><em>URIs:</em><p>
+                    <ol><li>http://www.google.it</li></ol>
+                ">
                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                    </a>
+                </a>
             </td>
         </tr>
 

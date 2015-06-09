@@ -43,6 +43,21 @@ module NDD
             uris.map { |uri| "- #{uri}\n" }.join
         end
       end
+
+      def details_body_as_html
+        body = <<-HTML.gsub(/^ +/, '')
+          <p><em>Status:</em> #{code}</p>
+          <p><em>URIs:</em><p>
+          <ol>#{uris.map { |uri| "<li>#{uri}</li>" }.join}</ol>
+        HTML
+
+        if error
+          body += "<p><em>Error:</em> #{error.class.to_s}</p>"
+          body += "<p><pre>#{error.body}</pre></p>" if error.kind_of?(Net::HTTPResponse)
+        end
+
+        body
+      end
     end
 
   end
