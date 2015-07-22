@@ -4,6 +4,8 @@
 [![Dependency Status](https://gemnasium.com/ddidier/ndd-url_checker.png)](https://gemnasium.com/ddidier/ndd-url_checker)
 [![Code Climate](https://codeclimate.com/github/ddidier/ndd-url_checker/badges/gpa.svg)](https://codeclimate.com/github/ddidier/ndd-url_checker)
 [![Test Coverage](https://codeclimate.com/github/ddidier/ndd-url_checker/badges/coverage.svg)](https://codeclimate.com/github/ddidier/ndd-url_checker)
+[![Documentation Coverage](https://inch-ci.org/github/ddidier/ndd-url_checker.svg)](https://inch-ci.org/github/ddidier/ndd-url_checker)
+[![Yard Documentation](http://img.shields.io/badge/yard-docs-blue.svg)](http://www.rubydoc.info/github/ddidier/ndd-url_checker)
 
 An URL validator.
 
