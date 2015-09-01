@@ -15,13 +15,13 @@ gem 'logging', '~> 1.8'
 group :development do
 
   gem 'bundler',                    '~> 1.7',  require: false
-  gem 'guard',                      '~> 2.8',  require: false
+  gem 'guard',                      '~> 2.13', require: false
   gem 'guard-bundler',              '~> 2.0',  require: false
-  gem 'guard-rspec',                '~> 4.3',  require: false
+  gem 'guard-rspec',                '~> 4.6',  require: false
   gem 'guard-spork',                '~> 2.0',  require: false
   gem 'jeweler',                    '~> 2.0',  require: false
   gem 'rdoc',                       '~> 4.1',  require: false
-  gem 'rspec',                      '~> 3.1',  require: false
+  gem 'rspec',                      '~> 3.3',  require: false
   gem 'rspec-collection_matchers',  '~> 1.1',  require: false
   gem 'simplecov',                  '~> 0.9',  require: false
   gem 'spork',                      '~> 0.9',  require: false
