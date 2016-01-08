@@ -1,5 +1,9 @@
 # NDD URL Checker changelog
 
+## Version 0.3.2
+
+- Update dependencies to fix security alerts
+
 ## Version 0.3.1
 
 - Update dependencies to fix security alerts
