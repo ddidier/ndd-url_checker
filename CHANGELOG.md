@@ -1,5 +1,11 @@
 # NDD URL Checker changelog
 
+## Version 0.3.3
+
+- Update dependencies
+- Add Ruby 2.3 to Travis build
+- Remove Jeweler
+
 ## Version 0.3.2
 
 - Update dependencies to fix security alerts

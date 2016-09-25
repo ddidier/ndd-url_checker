@@ -1,12 +1,9 @@
 source 'http://rubygems.org'
 
-HOST_OS = RbConfig::CONFIG['host_os']
 
-
-# ------------------------------------------------------------------------------
-# Dependencies required to use the gem.
-gem 'cod',     '~> 0.6'
-gem 'logging', '~> 1.8'
+# Dependencies required to use the gem. This will automatically pull in this
+# gem and all its dependencies specified in the gemspec.
+gem 'ndd-url_checker', path: File.expand_path(__dir__)
 
 
 # ------------------------------------------------------------------------------
@@ -19,7 +16,6 @@ group :development do
   gem 'guard-bundler',              '~> 2.0',  require: false
   gem 'guard-rspec',                '~> 4.7',  require: false
   gem 'guard-spork',                '~> 2.0',  require: false
- #gem 'jeweler',                    '~> 2.1',  require: false
   gem 'rdoc',                       '~> 4.1',  require: false
   gem 'rspec',                      '~> 3.5',  require: false
   gem 'rspec-collection_matchers',  '~> 1.1',  require: false
@@ -28,8 +24,10 @@ group :development do
   gem 'webmock',                    '~> 2.1',  require: false
   gem 'yard',                       '~> 0.9',  require: false
 
+  HOST_OS = RbConfig::CONFIG['host_os']
+
   case HOST_OS
-    when /darwin/i
+  when /darwin/i
       gem 'growl'
       gem 'rb-fsevent'
     when /linux/i

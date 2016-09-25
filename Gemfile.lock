@@ -1,3 +1,10 @@
+PATH
+  remote: .
+  specs:
+    ndd-url_checker (0.3.3)
+      cod (~> 0.6)
+      logging (~> 1.8)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -102,14 +109,13 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.7)
-  cod (~> 0.6)
   codeclimate-test-reporter (~> 0.4)
   guard (~> 2.14)
   guard-bundler (~> 2.0)
   guard-rspec (~> 4.7)
   guard-spork (~> 2.0)
   libnotify
-  logging (~> 1.8)
+  ndd-url_checker!
   rb-inotify
   rdoc (~> 4.1)
   rspec (~> 3.5)
