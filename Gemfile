@@ -19,7 +19,7 @@ group :development do
   gem 'guard-bundler',              '~> 2.0',  require: false
   gem 'guard-rspec',                '~> 4.7',  require: false
   gem 'guard-spork',                '~> 2.0',  require: false
-  gem 'jeweler',                    '~> 2.1',  require: false
+ #gem 'jeweler',                    '~> 2.1',  require: false
   gem 'rdoc',                       '~> 4.1',  require: false
   gem 'rspec',                      '~> 3.5',  require: false
   gem 'rspec-collection_matchers',  '~> 1.1',  require: false
