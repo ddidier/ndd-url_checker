@@ -16,8 +16,9 @@ The API documentation can be find at [RubyDoc](http://www.rubydoc.info/github/dd
 This gem requires Ruby 2.x and is tested with:
 
 - Ruby 2.0.0
-- Ruby 2.1.6
-- Ruby 2.2.2
+- Ruby 2.1
+- Ruby 2.2
+- Ruby 2.3
 
 ## Usage
 
@@ -80,5 +81,5 @@ report_as_text = checker.report('/some/template.erb', '/some/report.html')
 
 ## Copyright
 
-Copyright (c) 2014 David DIDIER.
+Copyright (c) 2016 David DIDIER.
 See `LICENSE.txt` for further details.
