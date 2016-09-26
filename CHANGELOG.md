@@ -3,8 +3,10 @@
 ## Version 0.3.3
 
 - Update dependencies
+- Remove Jeweler and use default workflow
 - Add Ruby 2.3 to Travis build
-- Remove Jeweler
+- Remove Ruby 2.0 and 2.1 from Travis build
+- Remove RDoc and tune Yardoc
 
 ## Version 0.3.2
 
