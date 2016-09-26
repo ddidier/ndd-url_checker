@@ -7,10 +7,16 @@ module NDD
     # @author David DIDIER
     class StatusDecorator < SimpleDelegator
 
+      # Returns the CSS class associated with the status.
       def code_as_css
         code.to_s.gsub(/_/, '-')
       end
 
+      # Returns:
+      # - nil if the status is :direct
+      # - the number of redirections if the status is :redirected or :too_many_redirects
+      # - the error if the status is :failed
+      # - the last URL if the status is :unknown_host
       def details_title
         case code
           when :direct then
@@ -27,6 +33,10 @@ module NDD
         end
       end
 
+      # Returns:
+      # - nil if the status is :direct
+      # - all the URLs if the status is :redirected or :too_many_redirects or :unknown_host
+      # - the error message if the status is :failed
       def details_body
         case code
           when :direct then
@@ -44,6 +54,7 @@ module NDD
         end
       end
 
+      # Returns an HTML description of the status.
       def details_body_as_html
         body = <<-HTML.gsub(/^ +/, '')
           <p><em>Status:</em> #{code}</p>

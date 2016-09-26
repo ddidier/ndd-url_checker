@@ -21,6 +21,10 @@ module NDD
         @delegate = delegate_checker
       end
 
+      # Checks that the given URLs are valid.
+      # @param urls [String, Array<String>] the URLs to check
+      # @return [NDD::UrlChecker::Status, Array<NDD::UrlChecker::Status>] a single status for a single URL, an array
+      #         of status for multiple parameters
       def check(*urls)
         results = nil
         benchmark = Benchmark.measure { results = @delegate.check(*urls) }
