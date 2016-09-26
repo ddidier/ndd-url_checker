@@ -15,12 +15,7 @@ The API documentation can be find at [RubyDoc](http://www.rubydoc.info/github/dd
 
 ## Prerequisites
 
-This gem requires Ruby 2.x and is tested with:
-
-- Ruby 2.0.0
-- Ruby 2.1
-- Ruby 2.2
-- Ruby 2.3
+This gem requires Ruby 2.x and [is tested against some versions](https://travis-ci.org/ddidier/ndd-url_checker).
 
 
 
