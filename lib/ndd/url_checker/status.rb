@@ -76,6 +76,7 @@ module NDD
         update_code(:unknown_host, %i(unknown redirected))
       end
 
+      # Returns the status representation
       def to_s
         self.inspect
       end

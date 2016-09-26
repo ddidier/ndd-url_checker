@@ -11,13 +11,13 @@ An URL validator.
 
 The API documentation can be find at [RubyDoc](http://www.rubydoc.info/github/ddidier/ndd-url_checker).
 
+
+
 ## Prerequisites
 
-This gem requires Ruby 2.x and is tested with:
+This gem requires Ruby 2.x and [is tested against some versions](https://travis-ci.org/ddidier/ndd-url_checker).
 
-- Ruby 2.0.0
-- Ruby 2.1.6
-- Ruby 2.2.2
+
 
 ## Usage
 
@@ -78,7 +78,14 @@ report_as_text = checker.report(:json, '/some/report.json')
 report_as_text = checker.report('/some/template.erb', '/some/report.html')
 ```
 
-## Copyright
 
-Copyright (c) 2014 David DIDIER.
-See `LICENSE.txt` for further details.
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/ddidier/ndd-url_checker.
+
+
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

@@ -1,12 +1,9 @@
 source 'http://rubygems.org'
 
-HOST_OS = RbConfig::CONFIG['host_os']
 
-
-# ------------------------------------------------------------------------------
-# Dependencies required to use the gem.
-gem 'cod',     '~> 0.6'
-gem 'logging', '~> 1.8'
+# Dependencies required to use the gem. This will automatically pull in this
+# gem and all its dependencies specified in the gemspec.
+gemspec
 
 
 # ------------------------------------------------------------------------------
@@ -14,22 +11,24 @@ gem 'logging', '~> 1.8'
 # Everything needed to run rake, tests, features, etc.
 group :development do
 
-  gem 'bundler',                    '~> 1.7',  require: false
-  gem 'guard',                      '~> 2.13', require: false
-  gem 'guard-bundler',              '~> 2.0',  require: false
-  gem 'guard-rspec',                '~> 4.6',  require: false
-  gem 'guard-spork',                '~> 2.0',  require: false
-  gem 'jeweler',                    '~> 2.0',  require: false
-  gem 'rdoc',                       '~> 4.1',  require: false
-  gem 'rspec',                      '~> 3.3',  require: false
-  gem 'rspec-collection_matchers',  '~> 1.1',  require: false
-  gem 'simplecov',                  '~> 0.9',  require: false
-  gem 'spork',                      '~> 0.9',  require: false
-  gem 'webmock',                    '~> 1.20', require: false
-  gem 'yard',                       '~> 0.8',  require: false
+  gem 'bundler',                    '~> 1.7',   require: false
+  gem 'guard',                      '~> 2.14',  require: false
+  gem 'guard-bundler',              '~> 2.0',   require: false
+  gem 'guard-rspec',                '~> 4.7',   require: false
+  gem 'guard-spork',                '~> 2.0',   require: false
+  gem 'rake',                       '~> 11.3',  require: false
+  gem 'rspec',                      '~> 3.5',   require: false
+  gem 'rspec-collection_matchers',  '~> 1.1',   require: false
+  gem 'ruby_dep',                   '~> 1.3.1', require: false
+  gem 'simplecov',                  '~> 0.12',  require: false
+  gem 'spork',                      '~> 0.9',   require: false
+  gem 'webmock',                    '~> 2.1',   require: false
+  gem 'yard',                       '~> 0.9',   require: false
+
+  HOST_OS = RbConfig::CONFIG['host_os']
 
   case HOST_OS
-    when /darwin/i
+  when /darwin/i
       gem 'growl'
       gem 'rb-fsevent'
     when /linux/i

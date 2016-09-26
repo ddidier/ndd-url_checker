@@ -1,19 +1,12 @@
-# bundler
-.bundle
-
-# jeweler
-pkg
-
-# rcov
-coverage
-coverage.data
-
-# rdoc
-rdoc
-
-# rubymine
+/.bundle/
 /.idea/
-
-# yard
-doc
-.yardoc
+/.yardoc/
+/coverage.data/
+/coverage/
+/doc/
+/Gemfile.lock
+/pkg/
+/rdoc/
+/spec/reports/
+/tmp/
+/yard/
