@@ -1,0 +1,9 @@
+--list-undoc
+--no-private
+--output-dir yard
+--protected
+-
+CHANGELOG.md
+LICENSE.txt
+README.md
+docs/*
